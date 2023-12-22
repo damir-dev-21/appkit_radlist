@@ -1,4 +1,4 @@
-group 'appkit'
+group 'kz.prosklad.appkit'
 version '1.0-SNAPSHOT'
 
 buildscript {

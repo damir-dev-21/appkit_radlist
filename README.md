@@ -88,6 +88,9 @@ In order to make use of common HTTP request logic, extend the `BaseHttp` class:
 
 ```dart
 class Http extends BaseHttp {
+  static const HEADER_DEVICE_INFO = 'X-Prosklad-Device-Info';
+  static const HEADER_REQUEST_ID = 'X-Prosklad-Request-ID';
+
   final LocalStorage _localStorage;
   final LifecycleProxy _lifecycleProxy;
 
@@ -101,6 +104,8 @@ class Http extends BaseHttp {
         _lifecycleProxy = lifecycleProxy,
         super(HttpConfig(
           baseUrl: Config.baseUrl + '/api/v1',
+          deviceInfoHeader: HEADER_DEVICE_INFO,
+          requestIdHeader: HEADER_REQUEST_ID,
         ));
 
   // Example initialization

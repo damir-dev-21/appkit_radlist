@@ -68,7 +68,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: appkit
+        package: kz.prosklad.appkit
         pluginClass: AppkitPlugin
       ios:
         pluginClass: AppkitPlugin

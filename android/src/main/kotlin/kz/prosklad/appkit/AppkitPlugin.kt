@@ -1,4 +1,4 @@
-package appkit
+package kz.prosklad.appkit
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -23,7 +23,7 @@ class AppkitPlugin: FlutterPlugin, MethodCallHandler {
   private var applicationContext: Context? = null
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-    channel = MethodChannel(flutterPluginBinding.binaryMessenger, "appkit")
+    channel = MethodChannel(flutterPluginBinding.binaryMessenger, "kz.prosklad.appkit")
     channel.setMethodCallHandler(this)
     applicationContext = flutterPluginBinding.applicationContext
   }
