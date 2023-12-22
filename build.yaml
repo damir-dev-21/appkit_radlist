@@ -1,0 +1,10 @@
+builders:
+  i18nBuilder:
+    import: 'package:appkit/common/i18n/builder/i18n_builder.dart'
+    builder_factories: ['i18nBuilder']
+    build_extensions: {'.i18n.yaml': ['.i18n.keys.dart', '.i18n.spec.dart']}
+    build_to: source
+    auto_apply: root_package
+    defaults:
+      release_options:
+        isReleaseMode: True
