@@ -4,7 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'local_storage.dart';
 
-const _LS_KEY_DID_INITIALIZE_SECURE_STORAGE = 'kz.prosklad.didInitializeSecureStorage';
+const _LS_KEY_DID_INITIALIZE_SECURE_STORAGE = 'kz.didInitializeSecureStorage';
 
 class SecureStorage {
   late final LocalStorage _localStorage;

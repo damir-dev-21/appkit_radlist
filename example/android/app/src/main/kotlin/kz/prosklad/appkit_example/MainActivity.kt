@@ -1,4 +1,4 @@
-package kz.prosklad.appkit_example
+package kz.appkit_example
 
 import io.flutter.embedding.android.FlutterActivity
 

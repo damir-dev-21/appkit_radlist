@@ -31,7 +31,7 @@ class CustomThemeWrapper extends StatefulWidget {
 
 class _CustomThemeWrapperState extends State<CustomThemeWrapper> {
   ThemeMode _mode = ThemeMode.light;
-  static const _LS_KEY_THEME_KEY = 'kz.prosklad.appkit.themeKey';
+  static const _LS_KEY_THEME_KEY = 'kz.appkit.themeKey';
 
   @override
   Widget build(BuildContext context) {
