@@ -46,7 +46,7 @@ TranslationProvider translations(BuildContext context) => provideOnce<Translatio
 
 /// Keeps a mapping of translation keys for each language key, handles translation lookup.
 class TranslationProvider with ChangeNotifier {
-  static const _LS_KEY_LANG_KEY = 'kz.prosklad.appkit.langKey';
+  static const _LS_KEY_LANG_KEY = 'kz.appkit.langKey';
   static const _DEFAULT_LANG_KEY = 'ru';
 
   final LocalStorage _localStorage;

@@ -88,8 +88,8 @@ In order to make use of common HTTP request logic, extend the `BaseHttp` class:
 
 ```dart
 class Http extends BaseHttp {
-  static const HEADER_DEVICE_INFO = 'X-Prosklad-Device-Info';
-  static const HEADER_REQUEST_ID = 'X-Prosklad-Request-ID';
+  static const HEADER_DEVICE_INFO = 'X-Device-Info';
+  static const HEADER_REQUEST_ID = 'X-Request-ID';
 
   final LocalStorage _localStorage;
   final LifecycleProxy _lifecycleProxy;
