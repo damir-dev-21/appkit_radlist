@@ -100,6 +100,30 @@ abstract class AppDialog {
     }));
   }
 
+  static Future<T?> alertCreate<T>({
+    String? title,
+    String? message,
+    String? subMessage,
+    List<Object>? messageValues,
+    required EDialogType type,
+    Widget? content,
+    List<Widget>? actions,
+    bool? isCancelable = true,
+  }) {
+    return AppRouter.push<T>(_routeBuilder((context) {
+      return InfoDialogCreateList(
+        title: title,
+        type: type,
+        message: message?.trim(),
+        subMessage: subMessage?.trim(),
+        messageValues: messageValues,
+        content: content,
+        actions: actions,
+        isCancelable: isCancelable,
+      );
+    }));
+  }
+
   static Future<bool> confirm({
     String? title,
     String? message,
@@ -149,7 +173,8 @@ abstract class AppDialog {
     required Widget child,
     List<Widget>? topActions,
     List<Widget>? bottomActions,
-    EdgeInsets insetPadding = const EdgeInsets.symmetric(horizontal: 40.0, vertical: 24.0),
+    EdgeInsets insetPadding =
+        const EdgeInsets.symmetric(horizontal: 40.0, vertical: 24.0),
     bool isCancelable = true,
     bool showCloseButton = true,
   }) {
@@ -171,7 +196,8 @@ abstract class AppDialog {
   /// in a separate tab.
   static void showTabbedDialog({
     required List<Widget> children,
-    EdgeInsets insetPadding = const EdgeInsets.symmetric(horizontal: 40, vertical: 24),
+    EdgeInsets insetPadding =
+        const EdgeInsets.symmetric(horizontal: 40, vertical: 24),
   }) {
     AppRouter.push(_routeBuilder(
       (context) => TabbedCustomDialog(
@@ -220,12 +246,35 @@ abstract class AppDialog {
     return showModalBottomSheet(
       isScrollControlled: isScrollControlled,
       context: context ?? currentContext,
+      backgroundColor: Colors.grey.withOpacity(0.3),
       builder: builder,
       elevation: 7,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(12),
-          topRight: Radius.circular(12),
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
+      ),
+    );
+  }
+
+  static Future<T?> showCustomBottomSheet<T>({
+    required WidgetBuilder builder,
+    bool isScrollControlled = false,
+    BuildContext? context,
+  }) {
+    final currentContext = AppRouter.currentContext;
+
+    return showModalBottomSheet(
+      isScrollControlled: isScrollControlled,
+      context: context ?? currentContext,
+      backgroundColor: Colors.transparent.withOpacity(0),
+      builder: builder,
+      elevation: 0,
+      // barrierColor: Color.fromRGBO(153, 153, 153, .2),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(20),
         ),
       ),
     );

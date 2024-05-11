@@ -5,7 +5,8 @@ import 'route_types/no_animation_route.dart';
 
 class AppRouter {
   static const Type DEFAULT_ROUTE_TYPE = CupertinoPageRoute;
-  static const Duration DEFAULT_TRANSITION_DURATION = Duration(milliseconds: 400);
+  static const Duration DEFAULT_TRANSITION_DURATION =
+      Duration(microseconds: 400);
 
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -72,7 +73,8 @@ class AppRouter {
     String routeName, {
     dynamic params,
   }) {
-    return navigatorKey.currentState?.pushNamed<T>(routeName, arguments: params);
+    return navigatorKey.currentState
+        ?.pushNamed<T>(routeName, arguments: params);
   }
 
   static Future<void>? pushReplacementNamed(
@@ -93,14 +95,16 @@ class AppRouter {
   }
 
   static Future<void>? replaceRoot(String routeName) {
-    return navigatorKey.currentState?.pushNamedAndRemoveUntil(routeName, (_) => false);
+    return navigatorKey.currentState
+        ?.pushNamedAndRemoveUntil(routeName, (_) => false);
   }
 
   static void pop([dynamic result]) {
     navigatorKey.currentState?.pop(result);
   }
 
-  static void popUntil(bool Function(Route<dynamic> route) predicate, {BuildContext? context}) {
+  static void popUntil(bool Function(Route<dynamic> route) predicate,
+      {BuildContext? context}) {
     if (context != null) {
       Navigator.popUntil(context, predicate);
     } else {

@@ -19,7 +19,7 @@ class AppDivider extends StatelessWidget {
       indent: fullWidth ? 0 : indent,
       endIndent: fullWidth ? 0 : indent,
       color: color,
-      thickness: 1,
+      thickness: .5,
     );
   }
 }

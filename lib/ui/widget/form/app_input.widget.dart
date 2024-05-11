@@ -135,6 +135,7 @@ class AppInput extends StatefulWidget {
   final double? elevation;
 
   final Color? textColor;
+  final Color? cursorColor;
 
   AppInput({
     Key? key,
@@ -148,6 +149,7 @@ class AppInput extends StatefulWidget {
     this.prefixLeftPadding,
     this.suffixWidget,
     this.hintWidget,
+    this.cursorColor,
     this.autofocus = false,
     this.disabled = false,
     this.showRequired = false,
@@ -169,14 +171,17 @@ class AppInput extends StatefulWidget {
     this.textAlign = TextAlign.start,
     this.style,
     this.padding = EdgeInsets.zero,
-    this.contentPadding = const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+    this.contentPadding =
+        const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
     this.tooltipWidget,
     this.onTap,
     this.alwaysShowLabel = false,
     this.borderRadius,
     this.elevation,
     this.textColor,
-  })  : inputType = isMoneyInput ? TextInputType.numberWithOptions(decimal: true) : inputType,
+  })  : inputType = isMoneyInput
+            ? TextInputType.numberWithOptions(decimal: true)
+            : inputType,
         super(key: key);
 
   @override
@@ -186,7 +191,8 @@ class AppInput extends StatefulWidget {
 class _AppInputState extends State<AppInput> {
   final _textFieldKey = GlobalKey();
   final _controller = TextEditingController();
-  final _phoneNumberFormatter = AppMaskedInputFormatter(mask: '+7 (###) ###-##-##');
+  final _phoneNumberFormatter =
+      AppMaskedInputFormatter(mask: '+7 (###) ###-##-##');
   late SuffixedNumberFormatter _moneyFormatter;
   late SuffixedNumberFormatter _numberFormatter;
 
@@ -387,7 +393,8 @@ class _AppInputState extends State<AppInput> {
     String? label;
     final validationError = widget.model.validationError;
     if (validationError != null) {
-      label = translate(context, validationError.message, values: validationError.formatValues);
+      label = translate(context, validationError.message,
+          values: validationError.formatValues);
     } else {
       if (widget.model.val?.isNotEmpty == true || widget.alwaysShowLabel) {
         label = widget.label ?? widget.model.fieldName;
@@ -422,6 +429,7 @@ class _AppInputState extends State<AppInput> {
   }
 
   Color? get _backgroundColor {
+    return Colors.transparent;
     if (_hasError()) {
       return theme(context).errorColor;
     } else if (widget.disabled) {
@@ -436,7 +444,8 @@ class _AppInputState extends State<AppInput> {
   }
 
   Color? get _shadowColor {
-    if (widget.theme == EAppInputTheme.bordered || widget.theme == EAppInputTheme.underlined) {
+    if (widget.theme == EAppInputTheme.bordered ||
+        widget.theme == EAppInputTheme.underlined) {
       return Colors.transparent;
     } else {
       return _hasFocus ? theme(context).shadowColor : Colors.transparent;
@@ -444,7 +453,9 @@ class _AppInputState extends State<AppInput> {
   }
 
   Color? get _placeholderColor {
-    return _hasError() ? theme(context).inverseTextColor.withAlpha(180) : theme(context).hintColor;
+    return _hasError()
+        ? theme(context).inverseTextColor.withAlpha(180)
+        : theme(context).hintColor;
   }
 
   Color? get _textColor {
@@ -492,7 +503,8 @@ class _AppInputState extends State<AppInput> {
 
   bool get _isNumberInput {
     return widget.inputType != null &&
-        widget.inputType?.index == TextInputType.values.indexOf(TextInputType.number);
+        widget.inputType?.index ==
+            TextInputType.values.indexOf(TextInputType.number);
   }
 
   bool get _isFractionInput {
@@ -512,7 +524,9 @@ class _AppInputState extends State<AppInput> {
       child: IosKeyboardDismissWrapper(
         focusNode: _focusNode,
         child: _buildTextField(),
-        enabled: _isNumberInput || _isPhoneInput || _textInputAction != TextInputAction.done,
+        enabled: _isNumberInput ||
+            _isPhoneInput ||
+            _textInputAction != TextInputAction.done,
       ),
     );
   }
@@ -541,16 +555,18 @@ class _AppInputState extends State<AppInput> {
       }
     }
     final textField = SizedBox(
-      height: widget.inputType != TextInputType.multiline ? 32 : null,
+      height: widget.inputType != TextInputType.multiline ? 40 : null,
       child: TextField(
         onTap: widget.onTap,
         key: _textFieldKey,
+        cursorColor: widget.cursorColor,
         autofocus: widget.autofocus,
         inputFormatters: _inputFormatters,
         enabled: !widget.disabled,
         focusNode: _focusNode,
         textInputAction: _textInputAction,
-        textCapitalization: widget.textCapitalization ?? TextCapitalization.none,
+        textCapitalization:
+            widget.textCapitalization ?? TextCapitalization.none,
         readOnly: widget.onTap != null,
         onSubmitted: (_) {
           widget.onTextInputActionPressed?.call();
@@ -564,14 +580,16 @@ class _AppInputState extends State<AppInput> {
             }
           });
         },
-        scrollPadding:
-            widget.hintWidget != null ? const EdgeInsets.all(70) : const EdgeInsets.all(20),
+        scrollPadding: widget.hintWidget != null
+            ? const EdgeInsets.all(70)
+            : const EdgeInsets.all(20),
         keyboardType: widget.inputType,
         controller: _controller,
         obscureText: _obscureText,
         style: widget.style?.copyWith(color: _textColor) ??
             TextStyle(
-              fontSize: widget.fontSize ?? (widget.size == EAppInputSize.normal ? 16 : 14),
+              fontSize: widget.fontSize ??
+                  (widget.size == EAppInputSize.normal ? 16 : 14),
               color: _textColor,
               height: 1.5,
             ),
@@ -604,7 +622,7 @@ class _AppInputState extends State<AppInput> {
             Positioned(
               top: 0,
               bottom: 0,
-              right: widget.theme == EAppInputTheme.underlined ? -10 : 4,
+              right: widget.theme == EAppInputTheme.underlined ? -5 : 4,
               child: Center(child: suffixWidget),
             ),
         ],
@@ -704,14 +722,14 @@ class _AppInputState extends State<AppInput> {
       );
     } else if (prefixIconName != null) {
       return Transform.translate(
-        offset: const Offset(-6, 0),
+        offset: const Offset(8, 0),
         child: Padding(
           padding: const EdgeInsets.all(6),
           child: AppIcon(
             prefixIconName,
             width: 15,
             height: 15,
-            color: theme(context).iconColor,
+            color: Colors.white,
           ),
         ),
       );
@@ -740,26 +758,28 @@ class _AppInputState extends State<AppInput> {
         },
       );
     } else if (widget.clearable) {
-      if (_controller.text.isNotEmpty &&
-          (!_isPhoneInput || _controller.text.length > 3) &&
-          (!widget.isMoneyInput || _controller.text != '')) {
-        return IconButton(
-          iconSize: 15,
-          icon: Icon(
-            Icons.cancel,
-            color: _hasError() ? theme(context).inverseTextColor : theme(context).iconColor,
-          ),
-          onPressed: _controller.text.isNotEmpty
-              ? () {
-                  _resetInput();
-                  if (_isPhoneInput) {
-                    _phoneNumberFormatter.reinitialize();
-                  }
-                  _focusNode.requestFocus();
-                }
-              : null,
-        );
-      }
+      // if (_controller.text.isNotEmpty &&
+      //     (!_isPhoneInput || _controller.text.length > 3) &&
+      //     (!widget.isMoneyInput || _controller.text != '')) {
+      //   return IconButton(
+      //     iconSize: 15,
+      //     icon: Icon(
+      //       Icons.cancel,
+      //       color: _hasError()
+      //           ? theme(context).inverseTextColor
+      //           : theme(context).iconColor,
+      //     ),
+      //     onPressed: _controller.text.isNotEmpty
+      //         ? () {
+      //             _resetInput();
+      //             if (_isPhoneInput) {
+      //               _phoneNumberFormatter.reinitialize();
+      //             }
+      //             _focusNode.requestFocus();
+      //           }
+      //         : null,
+      //   );
+      // }
     }
 
     return widget.suffixWidget;

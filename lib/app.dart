@@ -72,7 +72,8 @@ class AppLifecycleWrapper extends StatefulWidget {
   _AppLifecycleWrapperState createState() => _AppLifecycleWrapperState();
 }
 
-class _AppLifecycleWrapperState extends State<AppLifecycleWrapper> with WidgetsBindingObserver {
+class _AppLifecycleWrapperState extends State<AppLifecycleWrapper>
+    with WidgetsBindingObserver {
   LifecycleProxy? _lifecycleProxy;
   final _routeObserver = AppRouteObserver(isRootObserver: true);
 

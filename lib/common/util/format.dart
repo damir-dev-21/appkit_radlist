@@ -70,8 +70,8 @@ abstract class Format {
     return formatted;
   }
 
-  static percentDecimal(Decimal percent) =>
-      Format.percent(percent.toPrecision(PrecisionConstants.PERCENT).toDouble());
+  static percentDecimal(Decimal percent) => Format.percent(
+      percent.toPrecision(PrecisionConstants.PERCENT).toDouble());
 
   /// Format a percentage value. The '%' sign will be appended automatically.
   static String percent(double percent) {
@@ -108,19 +108,22 @@ abstract class Format {
     int fractionLength = PrecisionConstants.AMOUNT,
   }) {
     final fractionalFactor = pow(10, fractionLength);
-    final fractionalPart = amount * fractionalFactor - (amount.floor() * fractionalFactor);
+    final fractionalPart =
+        amount * fractionalFactor - (amount.floor() * fractionalFactor);
     final absAmount = amount.abs();
     String formatted;
     if (fractionalPart > 0) {
-      formatted = absAmount.toPrecision(fractionLength).toStringAsFixed(fractionLength);
+      formatted =
+          absAmount.toPrecision(fractionLength).toStringAsFixed(fractionLength);
     } else {
       formatted = absAmount.toStringAsFixed(0);
     }
 
     if (absAmount > 9999) {
       final result = formatted.split('').toList(growable: true);
-      final startIndex =
-          fractionalPart > 0 ? formatted.length - fractionLength - 1 : formatted.length;
+      final startIndex = fractionalPart > 0
+          ? formatted.length - fractionLength - 1
+          : formatted.length;
       for (int i = startIndex - 3; i >= 0; i -= 3) {
         if (i > 0) {
           result.insert(i, UnicodeSymbols.NBSP);
@@ -130,7 +133,8 @@ abstract class Format {
       formatted = result.join('');
     }
 
-    if (stripTrailingZeros && formatted.indexOf(_decimalSeparatorPattern) >= 0) {
+    if (stripTrailingZeros &&
+        formatted.indexOf(_decimalSeparatorPattern) >= 0) {
       formatted = formatted.replaceAll(_trailingZerosPattern, '');
     }
 
@@ -167,12 +171,14 @@ abstract class Format {
 
       String result;
       if (fractionLength > 0) {
-        final indexOfDecimalSeparator = stringValue.indexOf(_decimalSeparatorPattern);
+        final indexOfDecimalSeparator =
+            stringValue.indexOf(_decimalSeparatorPattern);
         if (indexOfDecimalSeparator >= 0) {
           result = formatted +
               normalizeDecimalPoint(stringValue.substring(
                 indexOfDecimalSeparator,
-                min(indexOfDecimalSeparator + fractionLength + 1, stringValue.length),
+                min(indexOfDecimalSeparator + fractionLength + 1,
+                    stringValue.length),
               ));
         } else {
           result = formatted;
@@ -190,7 +196,8 @@ abstract class Format {
   }
 
   static final _dateWithWeekdayFormat = DateFormat('d MMMM, EEEE', 'ru');
-  static final _dateFullWithWeekdayFormat = DateFormat('d MMMM yyyy, EEEE', 'ru');
+  static final _dateFullWithWeekdayFormat =
+      DateFormat('d MMMM yyyy, EEEE', 'ru');
   static final _dateHumanReadableFormat = DateFormat('d MMMM yyyy', 'ru');
 
   /// Format the given [dateTime] so that both date and time are shown.
@@ -321,8 +328,8 @@ abstract class Format {
     if (_phoneNumberPattern.hasMatch(input)) {
       final buffer = StringBuffer('+7 ');
       if (input.length > 1) {
-        buffer
-            .write('(${input.substring(1, min(4, input.length))}${input.length >= 4 ? ') ' : ''}');
+        buffer.write(
+            '(${input.substring(1, min(4, input.length))}${input.length >= 4 ? ') ' : ''}');
       }
       if (input.length > 4) {
         buffer.write(input.substring(4, min(7, input.length)));
@@ -339,5 +346,6 @@ abstract class Format {
   }
 
   /// Replace locale-specific decimal point character with standard period character ('.').
-  static String normalizeDecimalPoint(String input) => input.replaceAll(',', '.');
+  static String normalizeDecimalPoint(String input) =>
+      input.replaceAll(',', '.');
 }

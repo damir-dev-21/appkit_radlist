@@ -24,7 +24,8 @@ abstract class Appkit {
   static EmptyWidgetBuilder get emptyWidgetBuilder => _emptyWidgetBuilder;
   static late EmptyWidgetBuilder _emptyWidgetBuilder;
 
-  static PreferredScreenTypeGetter? get preferredScreenTypeGetter => _preferredScreenTypeGetter;
+  static PreferredScreenTypeGetter? get preferredScreenTypeGetter =>
+      _preferredScreenTypeGetter;
   static PreferredScreenTypeGetter? _preferredScreenTypeGetter;
 
   /// Configure the library.

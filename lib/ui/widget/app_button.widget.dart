@@ -156,11 +156,13 @@ class AppButton extends StatelessWidget {
 
   Color? _getBackgroundColor(BuildContext context) {
     return this.backgroundColor ??
-        (type == EButtonType.normal ? theme(context).textColor : theme(context).surfaceColor);
+        (type == EButtonType.normal
+            ? theme(context).textColor
+            : theme(context).surfaceColor);
   }
 
   Color? _getDisabledBackgroundColor(Color? bgColor) {
-    return bgColor?.withOpacity(0.3);
+    return bgColor?.withOpacity(1);
   }
 
   Widget _buildButton(BuildContext context) {
@@ -197,14 +199,18 @@ class AppButton extends StatelessWidget {
 
     return MaterialButton(
       visualDensity: VisualDensity.compact,
-      padding: padding ?? (size == EButtonSize.small ? _DEFAULT_SMALL_PADDING : _DEFAULT_PADDING),
+      padding: padding ??
+          (size == EButtonSize.small
+              ? _DEFAULT_SMALL_PADDING
+              : _DEFAULT_PADDING),
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       elevation: elevation,
       focusElevation: 0,
       highlightElevation: 0,
       hoverElevation: 0,
       minWidth: 60,
-      child: _buildContent(context: context, fgColor: fgColor, fontSize: fontSize),
+      child:
+          _buildContent(context: context, fgColor: fgColor, fontSize: fontSize),
       shape: RoundedRectangleBorder(
         borderRadius: borderRadius ?? BorderRadius.circular(100),
         side: type == EButtonType.bordered
@@ -218,7 +224,9 @@ class AppButton extends StatelessWidget {
       disabledTextColor: type == EButtonType.bordered ? null : fgColor,
       disabledColor: showLoader
           ? bgColor
-          : (type == EButtonType.bordered ? null : _getDisabledBackgroundColor(bgColor)),
+          : (type == EButtonType.bordered
+              ? null
+              : _getDisabledBackgroundColor(bgColor)),
       splashColor: rippleColor,
       highlightColor: rippleColor,
     );
@@ -231,7 +239,8 @@ class AppButton extends StatelessWidget {
   }) {
     return CupertinoButton(
       padding: padding ?? _DEFAULT_PADDING,
-      child: _buildContent(context: context, fgColor: fgColor, fontSize: fontSize),
+      child:
+          _buildContent(context: context, fgColor: fgColor, fontSize: fontSize),
       onPressed: disabled == false ? onPressed : null,
     );
   }
@@ -251,7 +260,8 @@ class AppButton extends StatelessWidget {
           child: child ??
               _buildLabel(
                 context,
-                TextStyle(color: fgColor, fontSize: fontSize, fontWeight: fontWeight),
+                TextStyle(
+                    color: fgColor, fontSize: fontSize, fontWeight: fontWeight),
               ),
         ),
         if (showLoader)

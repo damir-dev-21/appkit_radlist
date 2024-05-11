@@ -138,7 +138,9 @@ class AppPaginatedList<T> extends StatelessWidget {
   }) {
     switch (status) {
       case IndicatorStatus.empty:
-        return Center(child: TranslatedText(AppkitTr.label.empty$));
+        return Center(
+            child: Text(
+                "Nothing found")); //TranslatedText(AppkitTr.label.empty$));
       case IndicatorStatus.noMoreLoad:
         if (paginator.elementCount < 7) {
           return Container(color: backgroundColor);
@@ -147,10 +149,10 @@ class AppPaginatedList<T> extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 32),
                 color: backgroundColor,
-                child: TranslatedText(
-                  AppkitTr.label.listEnd$,
-                  textAlign: TextAlign.center,
-                ),
+                // child: TranslatedText(
+                //   AppkitTr.label.listEnd$,
+                //   textAlign: TextAlign.center,
+                // ),
               );
         }
       case IndicatorStatus.loadingMoreBusying:
@@ -184,7 +186,8 @@ class AppPaginatedList<T> extends StatelessWidget {
             children: <Widget>[
               AppLoadingIndicator(),
               verticalSpace(10),
-              loadingWidget ?? TranslatedText(AppkitTr.label.loading$),
+              loadingWidget ??
+                  Text("Loading") //TranslatedText(AppkitTr.label.loading$),
             ],
           ),
         );
